@@ -1097,5 +1097,33 @@
             }, 3000);
         }
     </script>
+    <!-- HTML এর একদম নিচে </body> এর ঠিক উপরে বসান -->
+<script type="module">
+  // CDN থেকে Firebase Modules ইমপোর্ট করুন
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+  import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAVP2nflXwj8XUunwOaPKd7tAC_7yw4sEo",
+    authDomain: "repon-sir-biology-private.firebaseapp.com",
+    databaseURL: "https://repon-sir-biology-private-default-rtdb.firebaseio.com",
+    projectId: "repon-sir-biology-private",
+    storageBucket: "repon-sir-biology-private.firebasestorage.app",
+    messagingSenderId: "176485226058",
+    appId: "1:176485226058:web:d83c85cd293e6a1b2e38b3",
+    measurementId: "G-34XXBK247W"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const database = getDatabase(app);
+
+  console.log("Firebase Connected Successfully!");
+
+  // কাস্টম উইন্ডো অবজেক্টে নিয়ে নিলে আপনি স্ক্রিপ্টের বাইরে থেকেও এটি ব্যবহার করতে পারবেন
+  window.database = database;
+</script>
 </body>
 </html>
