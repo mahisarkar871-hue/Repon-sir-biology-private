@@ -1372,26 +1372,28 @@ const analytics = getAnalytics(app);
             localStorage.setItem('repon_biology_user', JSON.stringify(user));
         }
 
-        function handleLogin(e) {
-            e.preventDefault();
-            const phone = document.getElementById('loginPhone').value;
-            const existingUser = getCurrentUser();
-            
-            if (existingUser && existingUser.phone === phone) {
-                closeModal('loginModal');
-                loadDashboard();
-                showToast(`Welcome back, ${existingUser.name}!`);
-            } else {
-                const user = {
-                    ...DEMO_STUDENT,
-                    phone: phone || DEMO_STUDENT.phone
-                };
-                setCurrentUser(user);
-                closeModal('loginModal');
-                loadDashboard();
-                showToast(`Logged in successfully!`);
-            }
+        async function handleLogin(e) {
+    e.preventDefault();
+    const phone = document.getElementById('loginPhone').value.trim();
+
+    try {
+        const doc = await db.collection('students').doc(phone).get();
+        
+        if (doc.exists) {
+            const studentData = doc.data();
+            setCurrentUser(studentData);
+            closeModal('loginModal');
+            loadDashboard();
+            showToast(`Welcome back, ${studentData.name}!`);
+        } else {
+            showToast("Student not found! Please check mobile number.", "fa-circle-xmark text-red-400");
         }
+    } catch (error) {
+        showToast("Database connection error!", "fa-circle-xmark text-red-400");
+    }
+}
+
+
 
         function quickDemoLogin() {
             setCurrentUser(DEMO_STUDENT);
@@ -1400,32 +1402,45 @@ const analytics = getAnalytics(app);
             showToast("Logged in with Demo Student Account!", "fa-circle-check text-emerald-400");
         }
 
-        function handleRegistration(e) {
-            e.preventDefault();
-            const selectedBatch = document.getElementById('regBatch').value;
-            const newStudent = {
-                name: document.getElementById('regName').value,
-                phone: document.getElementById('regPhone').value,
-                guardian: document.getElementById('regGuardian').value,
-                college: document.getElementById('regCollege').value,
-                batch: selectedBatch,
-                trxId: document.getElementById('regTrxID').value,
-                date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }),
-                payments: [
-                    { 
-                        month: `${selectedBatch} Admission + 1st Month`, 
-                        amount: "2,000 BDT", 
-                        trx: document.getElementById('regTrxID').value, 
-                        status: "Cleared" 
-                    }
-                ]
-            };
+ async function handleRegistration(e) {
+    e.preventDefault();
+    
+    const phone = document.getElementById('regPhone').value.trim();
+    const studentData = {
+        name: document.getElementById('regName').value,
+        phone: phone,
+        guardian: document.getElementById('regGuardian').value,
+        college: document.getElementById('regCollege').value,
+        batch: document.getElementById('regBatch').value,
+        trxId: document.getElementById('regTrxID').value,
+        date: new Date().toLocaleDateString('en-GB'),
+        payments: [
+            { 
+                month: `${document.getElementById('regBatch').value} Admission`, 
+                amount: "2,000 BDT", 
+                trx: document.getElementById('regTrxID').value, 
+                status: "Cleared" 
+            }
+        ],
+        exams: [
+            { title: "Botany Introductory Quiz", subject: "Botany", score: "48/50", rank: "Top 5", status: "Passed" }
+        ]
+    };
 
-            setCurrentUser(newStudent);
-            closeModal('registerModal');
-            loadDashboard();
-            showToast(`Submitted Enrollment for ${selectedBatch}!`);
-        }
+    try {
+        // Phone number দিয়ে Firestore 'students' কলেকশনে সেভ করা
+        await db.collection('students').doc(phone).set(studentData);
+        
+        setCurrentUser(studentData);
+        closeModal('registerModal');
+        loadDashboard();
+        showToast("Registration successful & Saved to Cloud Database!");
+    } catch (error) {
+        console.error("Error saving student:", error);
+        showToast("Error saving data to Firebase!", "fa-circle-xmark text-red-400");
+    }
+}
+
 
         function loadDashboard() {
             const user = getCurrentUser();
