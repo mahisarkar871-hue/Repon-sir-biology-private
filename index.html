@@ -1096,90 +1096,20 @@
                 toast.classList.add('hidden');
             }, 3000);
         }
-    <!-- Firebase SDK (CDN) & Main Script -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+    const firebaseConfig = {
+  apiKey: "AIzaSyAVP2nflXwj8XUunwOaPKd7tAC_7yw4sEo",
+  authDomain: "repon-sir-biology-private.firebaseapp.com",
+  databaseURL: "https://repon-sir-biology-private-default-rtdb.firebaseio.com",
+  projectId: "repon-sir-biology-private",
+  storageBucket: "repon-sir-biology-private.firebasestorage.app",
+  messagingSenderId: "176485226058",
+  appId: "1:176485226058:web:d83c85cd293e6a1b2e38b3",
+  measurementId: "G-34XXBK247W"
+};
 
-        // Firebase Configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyAVP2nflXwj8XUunwOaPKd7tAC_7yw4sEo",
-            authDomain: "repon-sir-biology-private.firebaseapp.com",
-            databaseURL: "https://repon-sir-biology-private-default-rtdb.firebaseio.com",
-            projectId: "repon-sir-biology-private",
-            storageBucket: "repon-sir-biology-private.firebasestorage.app",
-            messagingSenderId: "176485226058",
-            appId: "1:176485226058:web:d83c85cd293e6a1b2e38b3",
-            measurementId: "G-34XXBK247W"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-
-        // Registration Handling with Firebase Database
-        window.handleRegistration = async function(e) {
-            e.preventDefault();
-
-            const name = document.getElementById('regName').value.trim();
-            const mobile = document.getElementById('regMobile').value.trim();
-            const guardian = document.getElementById('regGuardian').value.trim();
-            const college = document.getElementById('regCollege').value.trim();
-            const batch = document.getElementById('regBatch').value;
-            const schedule = document.getElementById('regSchedule').value;
-            const trxId = document.getElementById('regTrxID').value.trim();
-
-            const studentData = {
-                mobile: mobile,
-                name: name,
-                college: college,
-                guardian: guardian,
-                batch: batch,
-                schedule: schedule,
-                trxId: trxId,
-                paymentCleared: true,
-                createdAt: new Date().toISOString(),
-                exams: [
-                    { title: 'Orientation & Chapter 1 Overview', subject: 'Biology Combined', marks: 'Pending', status: 'Enrolled', remarks: 'New Admission' }
-                ]
-            };
-
-            try {
-                // Firebase Database-এর 'students' নোডে মোবাইল নম্বর দিয়ে সেভ হবে
-                await set(ref(database, 'students/' + mobile), studentData);
-                
-                closeModal('registerModal');
-                showToast('Registration Successful! Data Saved to Firebase.');
-                
-                // Auto Login Session
-                setActiveUserSession(studentData);
-            } catch (error) {
-                console.error("Firebase Error: ", error);
-                showToast('Error saving data: ' + error.message);
-            }
-        };
-
-        // Login Handling with Firebase Database
-        window.handleLogin = async function(e) {
-            e.preventDefault();
-            const mobile = document.getElementById('loginMobile').value.trim();
-            const dbRef = ref(database);
-
-            try {
-                const snapshot = await get(child(dbRef, `students/${mobile}`));
-                if (snapshot.exists()) {
-                    const student = snapshot.val();
-                    closeModal('loginModal');
-                    setActiveUserSession(student);
-                    showToast(`Welcome back, ${student.name}!`);
-                } else {
-                    showToast('Mobile number not found in Database. Please register first.');
-                }
-            } catch (error) {
-                console.error("Login Error: ", error);
-                showToast('Error logging in: ' + error.message);
-            }
-        };
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
     </script>
 </body>
 </html>
