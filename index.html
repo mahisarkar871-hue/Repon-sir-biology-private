@@ -1,21 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" class="dark scroll-smooth">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Repon Sir - HSC Biology Mastery Hub | Rangpur</title>
+    <title>Repon Sir | Premier HSC Biology Mentorship</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Inter & Outfit -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Step 4: Firebase Compatibility SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
 
     <script>
         tailwind.config = {
@@ -23,41 +19,34 @@
             theme: {
                 extend: {
                     colors: {
-                        emerald: {
-                            400: '#34d399',
-                            500: '#10b981',
-                            600: '#059669',
-                            800: '#065f46',
-                            900: '#062c1e',
-                            950: '#022014',
-                        },
-                        navy: {
-                            800: '#0b192c',
-                            900: '#070f1e',
-                            950: '#030712'
-                        },
-                        cyan: {
-                            400: '#22d3ee',
-                            500: '#06b6d4'
+                        bio: {
+                            950: '#020d12',
+                            900: '#041821',
+                            800: '#0a2a36',
+                            700: '#0e3a4b',
+                            emerald: '#059669',
+                            mint: '#10b981',
+                            neon: '#34d399',
+                            accent: '#06b6d4'
                         }
                     },
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        heading: ['Outfit', 'sans-serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        outfit: ['Outfit', 'sans-serif']
                     },
                     animation: {
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'pulse-glow': 'pulseGlow 2.5s infinite alternate',
                         'float': 'float 6s ease-in-out infinite',
-                        'glow': 'glow 3s ease-in-out infinite alternate',
+                        'dna-rotate': 'dnaRotate 12s linear infinite'
                     },
                     keyframes: {
+                        pulseGlow: {
+                            '0%': { boxShadow: '0 0 15px rgba(16, 185, 129, 0.2)' },
+                            '100%': { boxShadow: '0 0 35px rgba(52, 211, 153, 0.6)' }
+                        },
                         float: {
                             '0%, 100%': { transform: 'translateY(0px)' },
-                            '50%': { transform: 'translateY(-15px)' },
-                        },
-                        glow: {
-                            '0%': { boxShadow: '0 0 15px rgba(16, 185, 129, 0.3)' },
-                            '100%': { boxShadow: '0 0 35px rgba(16, 185, 129, 0.7)' }
+                            '50%': { transform: 'translateY(-12px)' }
                         }
                     }
                 }
@@ -67,71 +56,60 @@
 
     <style>
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #020d09;
-            background-image: 
-                radial-gradient(at 10% 10%, rgba(16, 185, 129, 0.12) 0px, transparent 50%),
-                radial-gradient(at 90% 90%, rgba(6, 182, 212, 0.12) 0px, transparent 50%),
-                radial-gradient(at 50% 50%, rgba(2, 32, 20, 0.5) 0px, transparent 100%);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #020d12;
             color: #e2e8f0;
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4, .font-heading {
-            font-family: 'Outfit', sans-serif;
-        }
-
-        .glass-panel {
-            background: rgba(4, 28, 20, 0.75);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(16, 185, 129, 0.22);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-        }
-
+        /* Glassmorphism Classes */
         .glass-card {
-            background: rgba(6, 20, 32, 0.65);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border: 1px solid rgba(52, 211, 153, 0.18);
+            background: rgba(10, 42, 54, 0.55);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(52, 211, 153, 0.15);
+        }
+
+        .glass-card-hover {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .glass-card:hover {
-            border-color: rgba(52, 211, 153, 0.5);
+        .glass-card-hover:hover {
             transform: translateY(-4px);
-            box-shadow: 0 12px 35px -10px rgba(16, 185, 129, 0.35);
+            border-color: rgba(52, 211, 153, 0.4);
+            box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.3);
         }
 
-        .glass-card-cyan {
-            background: rgba(8, 26, 40, 0.65);
-            backdrop-filter: blur(14px);
-            border: 1px solid rgba(34, 211, 238, 0.2);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .glass-nav {
+            background: rgba(4, 24, 33, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(52, 211, 153, 0.1);
         }
 
-        .glass-card-cyan:hover {
-            border-color: rgba(34, 211, 238, 0.5);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 35px -10px rgba(34, 211, 238, 0.35);
-        }
-
-        .text-glow {
-            text-shadow: 0 0 16px rgba(16, 185, 129, 0.6);
-        }
-
+        /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #020d09;
+            background: #020d12;
         }
         ::-webkit-scrollbar-thumb {
-            background: #065f46;
+            background: #0e3a4b;
             border-radius: 4px;
         }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #10b981;
+        }
 
-        #dnaCanvas {
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, #a7f3d0 0%, #10b981 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Dynamic Canvas Layer */
+        #bgCanvas {
             position: fixed;
             top: 0;
             left: 0;
@@ -139,346 +117,985 @@
             height: 100%;
             pointer-events: none;
             z-index: 0;
-            opacity: 0.45;
-        }
-
-        #custom-cursor {
-            pointer-events: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 24px;
-            height: 24px;
-            border: 2px solid rgba(52, 211, 153, 0.6);
-            border-radius: 50%;
-            transition: transform 0.12s ease, width 0.2s ease, height 0.2s ease;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-        }
-        #cursor-dot {
-            pointer-events: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 6px;
-            height: 6px;
-            background: #10b981;
-            border-radius: 50%;
-            z-index: 10000;
-            transform: translate(-50%, -50%);
-        }
-
-        .toast {
-            transform: translateY(100px);
-            opacity: 0;
-            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-        }
-        .toast.show {
-            transform: translateY(0);
-            opacity: 1;
         }
     </style>
 </head>
-<body class="relative min-h-screen text-slate-100 selection:bg-emerald-500 selection:text-slate-950">
+<body class="relative min-h-screen selection:bg-bio-mint selection:text-bio-950">
 
-    <!-- Canvas & Cursor -->
-    <canvas id="dnaCanvas"></canvas>
-    <div id="custom-cursor" class="hidden md:block"></div>
-    <div id="cursor-dot" class="hidden md:block"></div>
+    <!-- Interactive Background Canvas for Bio Particles -->
+    <canvas id="bgCanvas"></canvas>
 
-    <!-- Announcement Bar -->
-    <div class="relative z-50 bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-600 text-slate-950 font-semibold text-xs sm:text-sm py-2 px-4 shadow-lg flex items-center justify-between overflow-hidden">
-        <div class="max-w-7xl mx-auto w-full flex items-center justify-between gap-4">
-            <div class="flex items-center gap-2 overflow-hidden whitespace-nowrap">
-                <span class="bg-slate-950 text-emerald-400 font-extrabold text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider animate-pulse shrink-0">HSC 28 Alert</span>
-                <span class="truncate">🎉 <strong>HSC 28 ADMISSION GOING ON!</strong> Secure your seat under Repon Sir.</span>
+    <!-- Navigation Header -->
+    <header class="fixed top-0 left-0 right-0 z-40 glass-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-bio-emerald to-bio-neon flex items-center justify-center text-bio-950 font-outfit font-extrabold text-xl shadow-lg group-hover:scale-105 transition-transform">
+                    <i class="fa-solid font-bold fa-dna"></i>
+                </div>
+                <div>
+                    <span class="font-outfit font-bold text-lg text-white block leading-none">REPON SIR</span>
+                    <span class="text-xs text-bio-neon font-medium tracking-wider">HSC BIOLOGY MENTORSHIP</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+                <a href="#hero" class="hover:text-bio-neon transition-colors">Home</a>
+                <a href="#profile" class="hover:text-bio-neon transition-colors">Instructor</a>
+                <a href="#batches" class="hover:text-bio-neon transition-colors">Batches & Timing</a>
+                <a href="#fees" class="hover:text-bio-neon transition-colors">Fee Structure</a>
+                <a href="#location" class="hover:text-bio-neon transition-colors">Location</a>
+            </nav>
+
+            <!-- Auth CTA Buttons -->
+            <div id="navAuthBtns" class="flex items-center gap-3">
+                <button onclick="openModal('loginModal')" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-bio-neon border border-bio-neon/30 hover:bg-bio-neon/10 transition-all">
+                    <i class="fa-solid fa-right-to-bracket mr-1.5"></i> Student Login
+                </button>
+                <button onclick="openModal('registerModal')" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-gradient-to-r from-bio-emerald to-bio-mint text-bio-950 hover:brightness-110 transition-all shadow-lg shadow-bio-emerald/20">
+                    <i class="fa-solid fa-user-plus mr-1.5"></i> Enroll Now
+                </button>
             </div>
-            <button onclick="openModal('registerModal')" class="shrink-0 bg-slate-950 hover:bg-slate-900 text-emerald-300 px-3 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1 shadow">
-                <span>Enroll HSC 28</span>
-                <i class="fa-solid fa-arrow-right text-[10px]"></i>
-            </button>
-        </div>
-    </div>
 
-    <!-- Toast Notification -->
-    <div id="toast" class="toast fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-emerald-950 border border-emerald-500/50 text-emerald-200 px-5 py-3.5 rounded-xl shadow-2xl backdrop-blur-md">
-        <i id="toast-icon" class="fa-solid fa-circle-check text-xl text-emerald-400"></i>
-        <span id="toast-message" class="text-sm font-medium">Notification message</span>
-    </div>
-
-    <!-- Navigation Bar -->
-    <nav class="sticky top-0 z-40 w-full glass-panel border-b border-emerald-500/10 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <a href="#" class="flex items-center gap-3 group">
-                    <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-emerald-600 to-cyan-500 flex items-center justify-center text-slate-950 font-bold text-xl shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-transform">
-                        <i class="fa-solid fa-dna text-slate-950"></i>
-                    </div>
-                    <div>
-                        <span class="font-heading font-extrabold text-xl sm:text-2xl tracking-tight text-white block leading-none">REPON SIR</span>
-                        <span class="text-xs text-emerald-400 font-medium tracking-wider uppercase">HSC 27 & HSC 28 Biology Mastery</span>
-                    </div>
-                </a>
-
-                <div class="hidden md:flex items-center gap-8 text-sm font-medium">
-                    <a href="#batches" class="text-slate-300 hover:text-emerald-400 transition-colors">Batch Schedules</a>
-                    <a href="#about" class="text-slate-300 hover:text-emerald-400 transition-colors">Teacher Profile</a>
-                    <a href="#fees" class="text-slate-300 hover:text-emerald-400 transition-colors">Fee & Payment</a>
-                    <a href="#contact" class="text-slate-300 hover:text-emerald-400 transition-colors">Location</a>
-                </div>
-
-                <div class="hidden md:flex items-center gap-3">
-                    <button onclick="openModal('loginModal')" class="px-4 py-2 rounded-xl text-sm font-semibold text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/10 transition-all">
-                        <i class="fa-solid fa-right-to-bracket mr-1.5"></i> Student Portal
-                    </button>
-                    <button onclick="openModal('registerModal')" class="px-4 py-2 rounded-xl text-sm font-semibold text-slate-950 bg-gradient-to-r from-emerald-400 to-cyan-400 hover:from-emerald-300 hover:to-cyan-300 shadow-lg shadow-emerald-500/20 hover:scale-[1.02] transition-all flex items-center gap-1.5">
-                        <i class="fa-solid fa-user-plus"></i>
-                        <span>Enroll HSC 28 / 27</span>
-                    </button>
-                </div>
+            <!-- Logged in State Widget (Hidden initially) -->
+            <div id="navUserWidget" class="hidden flex items-center gap-3">
+                <button onclick="openDashboard()" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-bio-800 text-bio-neon border border-bio-neon/40 hover:bg-bio-700 flex items-center gap-2">
+                    <i class="fa-solid fa-circle-user text-base"></i>
+                    <span id="navUserName">Dashboard</span>
+                </button>
+                <button onclick="logoutStudent()" class="p-2 rounded-xl text-xs text-rose-400 hover:bg-rose-500/10 border border-rose-500/20" title="Logout">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </button>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <!-- Hero Section -->
-    <section class="relative z-10 pt-10 pb-20 lg:pt-14 lg:pb-28">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+    <!-- Main Content Container -->
+    <main class="relative z-10 pt-20">
+
+        <!-- Hero Section -->
+        <section id="hero" class="min-h-[90vh] flex items-center py-12 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Column Text -->
                 <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
-                    <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
-                        HSC 27 & HSC 28 <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent text-glow">Biology Mastery</span> Hub
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-bio-neon/10 border border-bio-neon/30 text-bio-neon text-xs font-semibold tracking-wide animate-pulse">
+                        <span class="w-2 h-2 rounded-full bg-bio-neon animate-ping"></span>
+                        ADMISSION GOING ON FOR HSC 28
+                    </div>
+
+                    <h1 class="font-outfit text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+                        Master HSC <span class="gradient-text">Botany & Zoology</span> With Academic Excellence
                     </h1>
-                    <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
-                        Direct guidance by <strong class="text-white font-semibold">MD. MOKSEDUR RAHMAN REPON (Repon Sir)</strong>, Assistant Professor of Zoology at Rangpur Govt. College.
+
+                    <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                        Join Rangpur’s most specialized HSC Biology Learning Academy. Conceptual clarity, real-time exam progress tracking, and dedicated guidance for HSC 27 & HSC 28 candidates.
                     </p>
-                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
-                        <button onclick="openModal('registerModal')" class="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-slate-950 bg-gradient-to-r from-emerald-400 to-cyan-400 shadow-xl shadow-emerald-500/25 transition-all text-base flex items-center justify-center gap-2">
-                            <span>Enroll for HSC 28 / 27</span>
-                            <i class="fa-solid fa-arrow-right"></i>
+
+                    <!-- Feature Tags -->
+                    <div class="flex flex-wrap justify-center lg:justify-start gap-4 pt-2">
+                        <div class="flex items-center gap-2 text-xs sm:text-sm text-slate-300 glass-card px-3.5 py-2 rounded-lg">
+                            <i class="fa-solid fa-microscope text-bio-neon"></i>
+                            <span>In-depth Diagrams</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs sm:text-sm text-slate-300 glass-card px-3.5 py-2 rounded-lg">
+                            <i class="fa-solid fa-clipboard-check text-bio-neon"></i>
+                            <span>Regular Class Exams</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs sm:text-sm text-slate-300 glass-card px-3.5 py-2 rounded-lg">
+                            <i class="fa-solid fa-chart-line text-bio-neon"></i>
+                            <span>Progress Tracking</span>
+                        </div>
+                    </div>
+
+                    <!-- Call to Action Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+                        <button onclick="openModal('registerModal')" class="px-8 py-4 rounded-xl text-base font-bold bg-gradient-to-r from-bio-emerald to-bio-neon text-bio-950 shadow-xl shadow-bio-emerald/25 hover:scale-[1.02] active:scale-95 transition-all">
+                            Apply for Admission <i class="fa-solid fa-arrow-right ml-2"></i>
                         </button>
+                        <a href="#batches" class="px-8 py-4 rounded-xl text-base font-semibold text-slate-200 glass-card hover:bg-bio-800/80 hover:text-white transition-all text-center">
+                            View Batch Timings
+                        </a>
                     </div>
                 </div>
+
+                <!-- Right Column Teacher Portrait Badge -->
                 <div class="lg:col-span-5 flex justify-center">
-                    <div class="relative w-full max-w-md glass-panel p-4 rounded-3xl border border-emerald-500/40">
-                        <div class="relative overflow-hidden rounded-2xl aspect-[4/5] bg-emerald-950">
-                            <img src="https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-rangpur-college/2024/12/567f7d0813be47d6a750d6c5e9ee4608.jpg" alt="Repon Sir" class="w-full h-full object-cover">
+                    <div class="relative w-full max-w-md">
+                        <!-- Glowing backdrop ring -->
+                        <div class="absolute -inset-1 rounded-3xl bg-gradient-to-r from-bio-neon via-bio-emerald to-bio-accent opacity-30 blur-xl animate-pulse"></div>
+                        
+                        <div class="relative glass-card rounded-3xl p-6 text-center space-y-4">
+                            <!-- Image Wrapper -->
+                            <div class="relative w-48 h-48 sm:w-56 sm:h-56 mx-auto rounded-2xl overflow-hidden border-2 border-bio-neon/40 shadow-2xl">
+                                <img src="https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-rangpur-college/2024/12/567f7d0813be47d6a750d6c5e9ee4608.jpg" 
+                                     alt="MD. Moksedur Rahman Repon Sir" 
+                                     class="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500"
+                                     onerror="this.src='https://placehold.co/400x400/0a2a36/34d399?text=Repon+Sir'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-bio-950/80 via-transparent to-transparent"></div>
+                                <span class="absolute bottom-2 left-2 right-2 text-xs font-semibold bg-bio-emerald/80 backdrop-blur-md text-white py-1 rounded-md">
+                                    Department of Zoology
+                                </span>
+                            </div>
+
+                            <div>
+                                <h2 class="font-outfit text-2xl font-bold text-white">MD. Moksedur Rahman Repon</h2>
+                                <p class="text-bio-neon font-semibold text-sm">Assistant Professor</p>
+                                <p class="text-xs text-slate-400 mt-1">Department of Zoology, Rangpur Government College</p>
+                            </div>
+
+                            <div class="pt-3 border-t border-bio-neon/10 flex justify-around text-xs text-slate-300">
+                                <div>
+                                    <p class="font-bold text-white text-base">HSC 27 & 28</p>
+                                    <p class="text-slate-400">Target Batches</p>
+                                </div>
+                                <div class="border-r border-bio-neon/10"></div>
+                                <div>
+                                    <p class="font-bold text-bio-neon text-base">Botany & Zoology</p>
+                                    <p class="text-slate-400">Complete Care</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Profile & Expertise Section -->
+        <section id="profile" class="py-16 px-4 sm:px-6 lg:px-8 border-t border-bio-neon/10">
+            <div class="max-w-7xl mx-auto space-y-12">
+                <div class="text-center space-y-3">
+                    <span class="text-xs font-bold text-bio-neon tracking-widest uppercase">Academic Background</span>
+                    <h2 class="font-outfit text-3xl sm:text-4xl font-bold text-white">Meet Your Biology Mentor</h2>
+                    <p class="text-slate-400 max-w-xl mx-auto text-sm">Combining collegiate teaching expertise with simplified memory techniques to ensure A+ in HSC Biology.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Card 1 -->
+                    <div class="glass-card p-6 rounded-2xl glass-card-hover space-y-3">
+                        <div class="w-12 h-12 rounded-xl bg-bio-emerald/20 text-bio-neon flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Academic Alma Mater</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">
+                            Proud Alumnus of <strong class="text-white">Govt. Azizul Haque College</strong> and <strong class="text-white">University of Rajshahi</strong> with deep research orientation in biological sciences.
+                        </p>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="glass-card p-6 rounded-2xl glass-card-hover space-y-3">
+                        <div class="w-12 h-12 rounded-xl bg-bio-emerald/20 text-bio-neon flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-chalkboard-user"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Current Designation</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">
+                            Serving as <strong class="text-white">Assistant Professor</strong> at the Department of Zoology, <strong class="text-white">Rangpur Government College</strong>.
+                        </p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="glass-card p-6 rounded-2xl glass-card-hover space-y-3">
+                        <div class="w-12 h-12 rounded-xl bg-bio-emerald/20 text-bio-neon flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-dna"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Dual Mastery</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">
+                            Specialized in teaching both <strong class="text-white">Botany</strong> & <strong class="text-white">Zoology</strong> with step-by-step diagram training, weekly exams, and individual evaluation.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Batch Timings Section -->
+        <section id="batches" class="py-16 px-4 sm:px-6 lg:px-8 bg-bio-900/60 border-t border-bio-neon/10">
+            <div class="max-w-7xl mx-auto space-y-10">
+                <div class="text-center space-y-3">
+                    <span class="text-xs font-bold text-bio-neon tracking-widest uppercase">Class Schedules</span>
+                    <h2 class="font-outfit text-3xl sm:text-4xl font-bold text-white">Batches & Timing</h2>
+                    <p class="text-slate-400 max-w-xl mx-auto text-sm">Choose your preferred routine. Seats are limited to ensure individual desk support.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    
+                    <!-- HSC 28 Card (Admission Open) -->
+                    <div class="glass-card p-6 sm:p-8 rounded-3xl border-2 border-bio-neon/40 relative overflow-hidden">
+                        <div class="absolute top-4 right-4 bg-gradient-to-r from-bio-emerald to-bio-neon text-bio-950 font-bold text-xs px-3 py-1 rounded-full animate-bounce">
+                            ADMISSION OPEN NOW
+                        </div>
+
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-10 h-10 rounded-lg bg-bio-neon/20 flex items-center justify-center text-bio-neon font-bold text-lg">
+                                28
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">HSC 28 Batch</h3>
+                                <p class="text-xs text-bio-neon">1st Year Foundation & Board Exam Preparation</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <!-- Batch A -->
+                            <div class="p-4 rounded-xl bg-bio-800/60 border border-bio-neon/20 flex justify-between items-center">
+                                <div>
+                                    <p class="font-semibold text-white text-sm">Batch A (Sat, Mon, Wed)</p>
+                                    <p class="text-xs text-slate-400">Weekly 3 Days Class</p>
+                                </div>
+                                <div class="px-3 py-1 rounded-lg bg-bio-700 text-bio-neon text-sm font-bold">
+                                    3:00 PM - 4:00 PM
+                                </div>
+                            </div>
+
+                            <!-- Batch B -->
+                            <div class="p-4 rounded-xl bg-bio-800/60 border border-bio-neon/20 flex justify-between items-center">
+                                <div>
+                                    <p class="font-semibold text-white text-sm">Batch B (Sun, Tue, Thu)</p>
+                                    <p class="text-xs text-slate-400">Weekly 3 Days Class</p>
+                                </div>
+                                <div class="px-3 py-1 rounded-lg bg-bio-700 text-bio-neon text-sm font-bold">
+                                    3:00 PM - 4:00 PM
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 pt-4 border-t border-bio-neon/10 flex items-center justify-between">
+                            <span class="text-xs text-slate-400"><i class="fa-solid fa-circle-info mr-1 text-bio-neon"></i> Admission Fee: 2000 BDT</span>
+                            <button onclick="openModal('registerModal')" class="px-5 py-2 rounded-xl text-xs font-bold bg-bio-neon text-bio-950 hover:brightness-110 transition-all">
+                                Enroll HSC 28
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- HSC 27 Card -->
+                    <div class="glass-card p-6 sm:p-8 rounded-3xl border border-bio-neon/20 relative">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-10 h-10 rounded-lg bg-bio-emerald/20 flex items-center justify-center text-bio-emerald font-bold text-lg">
+                                27
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">HSC 27 Batch</h3>
+                                <p class="text-xs text-slate-400">2nd Year Mastery & Final Revision</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <!-- Batch A -->
+                            <div class="p-4 rounded-xl bg-bio-800/40 border border-bio-neon/10 flex justify-between items-center">
+                                <div>
+                                    <p class="font-semibold text-white text-sm">Batch A (Sat, Mon, Wed)</p>
+                                    <p class="text-xs text-slate-400">Weekly 3 Days Class</p>
+                                </div>
+                                <div class="px-3 py-1 rounded-lg bg-bio-800 text-slate-200 text-sm font-bold">
+                                    4:00 PM - 5:00 PM
+                                </div>
+                            </div>
+
+                            <!-- Batch B -->
+                            <div class="p-4 rounded-xl bg-bio-800/40 border border-bio-neon/10 flex justify-between items-center">
+                                <div>
+                                    <p class="font-semibold text-white text-sm">Batch B (Sun, Tue, Thu)</p>
+                                    <p class="text-xs text-slate-400">Weekly 3 Days Class</p>
+                                </div>
+                                <div class="px-3 py-1 rounded-lg bg-bio-800 text-slate-200 text-sm font-bold">
+                                    4:00 PM - 5:00 PM
+                                </div>
+                            </div>
+
+                            <!-- Batch C -->
+                            <div class="p-4 rounded-xl bg-bio-800/40 border border-bio-neon/10 flex justify-between items-center">
+                                <div>
+                                    <p class="font-semibold text-white text-sm">Batch C (Sun, Tue, Thu)</p>
+                                    <p class="text-xs text-slate-400">Evening Special Slot</p>
+                                </div>
+                                <div class="px-3 py-1 rounded-lg bg-bio-800 text-slate-200 text-sm font-bold">
+                                    5:00 PM - 6:00 PM
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 pt-4 border-t border-bio-neon/10 flex items-center justify-between">
+                            <span class="text-xs text-slate-400"><i class="fa-solid fa-circle-info mr-1 text-bio-neon"></i> Monthly Fee: 1000 BDT</span>
+                            <button onclick="openModal('registerModal')" class="px-5 py-2 rounded-xl text-xs font-semibold text-bio-neon border border-bio-neon/30 hover:bg-bio-neon/10 transition-all">
+                                Enroll HSC 27
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Fee Structure & bKash Payment Calculator -->
+        <section id="fees" class="py-16 px-4 sm:px-6 lg:px-8 border-t border-bio-neon/10">
+            <div class="max-w-7xl mx-auto space-y-12">
+                <div class="text-center space-y-3">
+                    <span class="text-xs font-bold text-bio-neon tracking-widest uppercase">Transparent Pricing</span>
+                    <h2 class="font-outfit text-3xl sm:text-4xl font-bold text-white">Fee Structure & bKash Payment</h2>
+                    <p class="text-slate-400 max-w-xl mx-auto text-sm">Clear breakdown of admission and monthly dues. Pay conveniently using bKash.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    
+                    <!-- Fee Breakdown Cards -->
+                    <div class="lg:col-span-5 space-y-6">
+                        <div class="glass-card p-6 rounded-2xl border-l-4 border-bio-neon space-y-2">
+                            <div class="flex justify-between items-center">
+                                <h3 class="text-lg font-bold text-white">Monthly Tuition Fee</h3>
+                                <span class="text-2xl font-extrabold text-bio-neon">1000 BDT</span>
+                            </div>
+                            <p class="text-xs text-slate-300">Regular monthly fee payable by the 10th of every month.</p>
+                        </div>
+
+                        <div class="glass-card p-6 rounded-2xl border-l-4 border-bio-emerald space-y-2">
+                            <div class="flex justify-between items-center">
+                                <h3 class="text-lg font-bold text-white">New Admission Package</h3>
+                                <span class="text-2xl font-extrabold text-bio-neon">2000 BDT</span>
+                            </div>
+                            <p class="text-xs text-slate-300">Includes Admission Fee + First Month Advance Fee (Total 2000 BDT).</p>
+                        </div>
+
+                        <!-- bKash Guide Box -->
+                        <div class="glass-card p-6 rounded-2xl bg-pink-950/20 border border-pink-500/30 space-y-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-pink-600 flex items-center justify-center text-white font-bold text-xl">
+                                    <i class="fa-solid fa-mobile-screen-button"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white text-base">bKash Personal Number</h4>
+                                    <p class="text-xs text-pink-300">Use "Send Money" Option</p>
+                                </div>
+                            </div>
+
+                            <div class="p-3 bg-bio-950/80 rounded-xl border border-pink-500/20 flex items-center justify-between">
+                                <span class="font-mono font-bold text-lg text-pink-400 select-all">+880 1710-056730</span>
+                                <button onclick="copyToClipboard('01710056730')" class="text-xs px-3 py-1.5 rounded-lg bg-pink-600/30 text-pink-200 hover:bg-pink-600/50 transition-colors">
+                                    <i class="fa-regular fa-copy mr-1"></i> Copy
+                                </button>
+                            </div>
+
+                            <ol class="text-xs text-slate-300 space-y-1 list-decimal list-inside">
+                                <li>Open bKash App & select <strong>Send Money</strong></li>
+                                <li>Enter <strong>01710056730</strong></li>
+                                <li>Enter amount (2000 for New Admission)</li>
+                                <li>Save the <strong>TrxID</strong> for registration submission</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Fee Calculator -->
+                    <div class="lg:col-span-7 glass-card p-6 sm:p-8 rounded-3xl space-y-6">
+                        <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-calculator text-bio-neon"></i> Interactive Fee Calculator
+                        </h3>
+
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 mb-2">Select Enrollment Type</label>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <button type="button" id="calcNewBtn" onclick="setCalcType('new')" class="py-3 px-4 rounded-xl border border-bio-neon text-sm font-semibold bg-bio-neon/20 text-bio-neon transition-all">
+                                        New Student Admission
+                                    </button>
+                                    <button type="button" id="calcRegularBtn" onclick="setCalcType('regular')" class="py-3 px-4 rounded-xl border border-bio-neon/20 text-sm font-semibold text-slate-400 hover:bg-bio-800 transition-all">
+                                        Regular Student Dues
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div id="monthsCountWrapper">
+                                <label class="block text-xs font-semibold text-slate-300 mb-2">Number of Months: <span id="monthsVal" class="text-bio-neon font-bold">1</span></label>
+                                <input type="range" id="monthsRange" min="1" max="6" value="1" oninput="updateCalculator()" class="w-full accent-emerald-500 cursor-pointer">
+                            </div>
+
+                            <div class="p-4 rounded-2xl bg-bio-950/80 border border-bio-neon/20 space-y-3">
+                                <div class="flex justify-between text-sm text-slate-300">
+                                    <span>Admission Fee:</span>
+                                    <span id="calcAdmissionFee" class="font-mono text-white">1000 BDT</span>
+                                </div>
+                                <div class="flex justify-between text-sm text-slate-300">
+                                    <span>Tuition Fee (<span id="calcMonthsText">1 Month</span>):</span>
+                                    <span id="calcTuitionFee" class="font-mono text-white">1000 BDT</span>
+                                </div>
+                                <div class="border-t border-bio-neon/20 pt-3 flex justify-between items-center">
+                                    <span class="font-bold text-white">Total Payable Amount:</span>
+                                    <span id="calcTotalFee" class="text-2xl font-extrabold text-bio-neon font-mono">2000 BDT</span>
+                                </div>
+                            </div>
+
+                            <div class="text-xs text-slate-400 bg-bio-800/40 p-3 rounded-xl border border-bio-neon/10">
+                                <i class="fa-solid fa-lightbulb text-bio-neon mr-1"></i> Keep your bKash Transaction ID (TrxID) handy after making the transfer to verify your payment during registration.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Location & Contact Section -->
+        <section id="location" class="py-16 px-4 sm:px-6 lg:px-8 bg-bio-900/60 border-t border-bio-neon/10">
+            <div class="max-w-7xl mx-auto space-y-10">
+                <div class="text-center space-y-3">
+                    <span class="text-xs font-bold text-bio-neon tracking-widest uppercase">Academy Address</span>
+                    <h2 class="font-outfit text-3xl sm:text-4xl font-bold text-white">Location & Contact</h2>
+                    <p class="text-slate-400 max-w-xl mx-auto text-sm">Visit our learning hall or call us for batch inquiry.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <!-- Address Box -->
+                    <div class="glass-card p-8 rounded-3xl space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-bio-neon/20 text-bio-neon flex items-center justify-center text-xl shrink-0">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white">Learning Center Location</h3>
+                                <p class="text-slate-300 text-sm mt-1 leading-relaxed">
+                                    Chanmari Math, Radhaballav, Rangpur, Bangladesh.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-bio-emerald/20 text-bio-emerald flex items-center justify-center text-xl shrink-0">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white">Direct Phone Contact</h3>
+                                <p class="text-bio-neon font-mono text-lg font-bold mt-1">
+                                    +880 1710-056730
+                                </p>
+                                <p class="text-xs text-slate-400">Call during 10:00 AM - 8:00 PM for enrollment queries</p>
+                            </div>
+                        </div>
+
+                        <div class="pt-4 border-t border-bio-neon/10 flex gap-4">
+                            <a href="tel:+8801710056730" class="flex-1 py-3 text-center rounded-xl font-semibold bg-bio-neon text-bio-950 text-sm hover:brightness-110 transition-all">
+                                <i class="fa-solid fa-phone mr-1"></i> Call Now
+                            </a>
+                            <button onclick="copyToClipboard('+8801710056730')" class="px-4 py-3 rounded-xl border border-bio-neon/30 text-bio-neon text-sm hover:bg-bio-neon/10 transition-all">
+                                Copy Phone
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Visual Location Representation Card -->
+                    <div class="glass-card p-8 rounded-3xl border border-bio-neon/20 text-center space-y-4">
+                        <div class="w-20 h-20 mx-auto rounded-full bg-bio-emerald/20 text-bio-neon flex items-center justify-center text-3xl animate-pulse">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white">Rangpur City Center</h3>
+                        <p class="text-sm text-slate-300">
+                            Conveniently situated at <strong class="text-white">Radhaballav (Chanmari Math)</strong>, accessible from all major colleges in Rangpur.
+                        </p>
+                        <div class="inline-block px-4 py-2 rounded-xl bg-bio-800 text-xs text-bio-neon font-mono">
+                            Rangpur Sadar • Radhaballav • Chanmari
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Student Registration Modal -->
-    <div id="registerModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-        <div class="glass-modal w-full max-w-lg p-6 sm:p-8 rounded-3xl space-y-5 relative max-h-[90vh] overflow-y-auto">
-            <button onclick="closeModal('registerModal')" class="absolute top-5 right-5 text-slate-400 hover:text-white text-xl">
+        <!-- Footer -->
+        <footer class="py-10 px-4 border-t border-bio-neon/10 text-center text-xs text-slate-500">
+            <div class="max-w-7xl mx-auto space-y-3">
+                <p class="font-outfit text-slate-300 font-semibold text-sm">REPON SIR • HSC BIOLOGY ACADEMY</p>
+                <p>Designed for HSC 27 & HSC 28 Botany & Zoology Preparation</p>
+                <p class="text-slate-600">Chanmari Math, Radhaballav, Rangpur | Phone: +880 1710-056730</p>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- Modals & Portal Overlays -->
+
+    <!-- Registration Modal -->
+    <div id="registerModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-bio-950/80 backdrop-blur-md">
+        <div class="glass-card max-w-lg w-full rounded-3xl p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto border border-bio-neon/30 shadow-2xl">
+            <button onclick="closeModal('registerModal')" class="absolute top-5 right-5 text-slate-400 hover:text-white text-lg">
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
-            <div class="text-center">
-                <h3 class="font-heading text-2xl font-bold text-white">Apply for HSC Biology Admission</h3>
-                <p class="text-xs text-slate-400 mt-1">Select your batch & verify bKash admission fee (2000 BDT)</p>
+            <div class="space-y-2 mb-6">
+                <span class="text-xs font-bold text-bio-neon tracking-wider uppercase">Student Admission</span>
+                <h3 class="text-2xl font-bold text-white">HSC Biology Registration</h3>
+                <p class="text-xs text-slate-400">Fill in your details and provide the bKash TrxID for fee clearance.</p>
             </div>
 
-            <!-- Registration Form with Step 5 Handler -->
-            <form onsubmit="handleRegistration(event)" class="space-y-3 text-xs">
+            <form onsubmit="handleRegistration(event)" class="space-y-4">
                 <div>
-                    <label class="block text-slate-300 mb-1">Target HSC Batch *</label>
-                    <select id="regBatch" required class="w-full bg-slate-900/90 border-2 border-cyan-500/50 rounded-xl p-3 text-cyan-300 font-bold focus:outline-none">
-                        <option value="HSC 28 (Sat,Mon,Wed 3-4 PM)">HSC 28: Sat, Mon, Wed (3:00 PM - 4:00 PM)</option>
-                        <option value="HSC 28 (Sun,Tue,Thu 3-4 PM)">HSC 28: Sun, Tue, Thu (3:00 PM - 4:00 PM)</option>
-                        <option value="HSC 27 (Sat,Mon,Wed 4-5 PM)">HSC 27: Sat, Mon, Wed (4:00 PM - 5:00 PM)</option>
-                    </select>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">Student Full Name *</label>
+                    <input type="text" id="regName" required placeholder="e.g. Tanvir Hossain" class="w-full px-4 py-3 rounded-xl bg-bio-900 border border-bio-neon/20 text-white focus:outline-none focus:border-bio-neon text-sm">
                 </div>
 
-                <div>
-                    <label class="block text-slate-300 mb-1">Student Full Name *</label>
-                    <input type="text" id="regName" required placeholder="e.g. Tanvir Ahmed" class="w-full bg-slate-900 border border-emerald-500/30 rounded-xl p-3 text-white">
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-slate-300 mb-1">Mobile Number (Login ID) *</label>
-                        <input type="tel" id="regPhone" required placeholder="017XXXXXXXX" class="w-full bg-slate-900 border border-emerald-500/30 rounded-xl p-3 text-white">
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">Mobile Number (Login ID) *</label>
+                        <input type="tel" id="regMobile" required placeholder="01700000000" class="w-full px-4 py-3 rounded-xl bg-bio-900 border border-bio-neon/20 text-white focus:outline-none focus:border-bio-neon text-sm">
                     </div>
                     <div>
-                        <label class="block text-slate-300 mb-1">Guardian Mobile *</label>
-                        <input type="tel" id="regGuardian" required placeholder="018XXXXXXXX" class="w-full bg-slate-900 border border-emerald-500/30 rounded-xl p-3 text-white">
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">Guardian Contact *</label>
+                        <input type="tel" id="regGuardian" required placeholder="01800000000" class="w-full px-4 py-3 rounded-xl bg-bio-900 border border-bio-neon/20 text-white focus:outline-none focus:border-bio-neon text-sm">
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-slate-300 mb-1">College Name *</label>
-                    <input type="text" id="regCollege" required placeholder="e.g. Rangpur Govt. College" class="w-full bg-slate-900 border border-emerald-500/30 rounded-xl p-3 text-white">
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">College Name *</label>
+                    <input type="text" id="regCollege" required placeholder="e.g. Rangpur Govt College" class="w-full px-4 py-3 rounded-xl bg-bio-900 border border-bio-neon/20 text-white focus:outline-none focus:border-bio-neon text-sm">
                 </div>
 
-                <div>
-                    <label class="block text-slate-300 mb-1">bKash TrxID (2000 BDT) *</label>
-                    <input type="text" id="regTrxID" required placeholder="e.g. BLX982312" class="w-full bg-slate-900 border border-emerald-500/30 rounded-xl p-3 text-emerald-400 font-mono">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">HSC Batch *</label>
+                        <select id="regBatch" onchange="updateBatchScheduleOptions()" required class="w-full px-4 py-3 rounded-xl bg-bio-900 border border-bio-neon/20 text-white focus:outline-none focus:border-bio-neon text-sm">
+                            <option value="HSC 28">HSC 28 (Admission Open)</option>
+                            <option value="HSC 27">HSC 27</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">Preferred Schedule *</label>
+                        <select id="regSchedule" required class="w-full px-4 py-3 rounded-xl bg-bio-900 border border-bio-neon/20 text-white focus:outline-none focus:border-bio-neon text-sm">
+                            <!-- Populated dynamically -->
+                        </select>
+                    </div>
                 </div>
 
-                <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-400 to-cyan-400 text-slate-950 font-bold text-sm shadow-xl transition-all mt-2">
-                    Submit Admission Application
+                <div class="p-4 rounded-xl bg-pink-950/30 border border-pink-500/30 space-y-2">
+                    <p class="text-xs text-pink-300 font-semibold"><i class="fa-solid fa-money-bill-wave mr-1"></i> bKash Send Money Verification (2000 BDT)</p>
+                    <p class="text-xs text-slate-300">Send 2000 BDT to <strong>01710056730</strong> and enter the Transaction ID below:</p>
+                    <input type="text" id="regTrxID" required placeholder="e.g. BKX9827361" class="w-full px-4 py-2.5 rounded-lg bg-bio-950 border border-pink-500/40 text-pink-300 font-mono text-sm focus:outline-none">
+                </div>
+
+                <button type="submit" class="w-full py-4 rounded-xl font-bold bg-gradient-to-r from-bio-emerald to-bio-neon text-bio-950 hover:brightness-110 transition-all shadow-lg">
+                    Submit Admission Form
                 </button>
             </form>
         </div>
     </div>
 
-    <!-- Student Login Modal -->
-    <div id="loginModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-        <div class="glass-modal w-full max-w-md p-6 sm:p-8 rounded-3xl space-y-5 relative">
-            <button onclick="closeModal('loginModal')" class="absolute top-5 right-5 text-slate-400 hover:text-white">
+    <!-- Login Modal -->
+    <div id="loginModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-bio-950/80 backdrop-blur-md">
+        <div class="glass-card max-w-md w-full rounded-3xl p-6 sm:p-8 relative border border-bio-neon/30 shadow-2xl space-y-6">
+            <button onclick="closeModal('loginModal')" class="absolute top-5 right-5 text-slate-400 hover:text-white text-lg">
                 <i class="fa-solid fa-xmark"></i>
             </button>
-            <h3 class="font-heading text-2xl font-bold text-white text-center">Student Portal Login</h3>
-            <form onsubmit="handleLogin(event)" class="space-y-4 text-xs">
-                <div>
-                    <label class="block text-slate-300 mb-1">Mobile Number</label>
-                    <input type="tel" id="loginPhone" required placeholder="017XXXXXXXX" class="w-full bg-slate-900 border border-emerald-500/30 rounded-xl p-3 text-white">
-                </div>
-                <button type="submit" class="w-full py-3.5 rounded-xl bg-emerald-500 text-slate-950 font-bold text-sm">Login to Portal</button>
-            </form>
-        </div>
-    </div>
 
-    <!-- Student Dashboard Overlay -->
-    <div id="studentDashboardSection" class="hidden fixed inset-0 z-50 bg-navy-950/95 backdrop-blur-2xl overflow-y-auto p-6">
-        <div class="max-w-5xl mx-auto space-y-6">
-            <div class="glass-panel p-6 rounded-2xl flex items-center justify-between">
+            <div class="space-y-1">
+                <span class="text-xs font-bold text-bio-neon tracking-wider uppercase">Portal Access</span>
+                <h3 class="text-2xl font-bold text-white">Student Login</h3>
+                <p class="text-xs text-slate-400">Enter your registered mobile number to view profile and exam marks.</p>
+            </div>
+
+            <form onsubmit="handleLogin(event)" class="space-y-4">
                 <div>
-                    <h2 id="dashStudentName" class="font-heading text-2xl font-bold text-white">Student Name</h2>
-                    <p id="dashStudentCollege" class="text-xs text-slate-300">College Name</p>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">Registered Mobile Number</label>
+                    <input type="tel" id="loginMobile" required placeholder="01700000000" class="w-full px-4 py-3 rounded-xl bg-bio-900 border border-bio-neon/20 text-white focus:outline-none focus:border-bio-neon text-sm">
                 </div>
-                <button onclick="logoutStudent()" class="px-4 py-2 rounded-xl border border-red-500/40 text-red-400 text-xs font-semibold">Logout</button>
+
+                <button type="submit" class="w-full py-3.5 rounded-xl font-bold bg-bio-neon text-bio-950 hover:brightness-110 transition-all">
+                    Access Dashboard
+                </button>
+            </form>
+
+            <div class="pt-4 border-t border-bio-neon/10 text-center space-y-2">
+                <p class="text-xs text-slate-400">Want to test with a pre-created demo account?</p>
+                <button onclick="loadDemoStudent()" class="text-xs font-semibold text-bio-neon underline hover:text-white">
+                    Click to Auto-fill Demo Account
+                </button>
             </div>
         </div>
     </div>
 
+    <!-- Student Dashboard Screen Modal -->
+    <div id="dashboardModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-bio-950/90 backdrop-blur-lg">
+        <div class="glass-card max-w-3xl w-full rounded-3xl p-6 sm:p-8 relative max-h-[92vh] overflow-y-auto border border-bio-neon/30 shadow-2xl space-y-6">
+            <button onclick="closeModal('dashboardModal')" class="absolute top-5 right-5 text-slate-400 hover:text-white text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Dashboard Header -->
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-bio-neon/10 pb-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-bio-emerald to-bio-neon text-bio-950 font-bold text-2xl flex items-center justify-center">
+                        <i class="fa-solid fa-user-graduate"></i>
+                    </div>
+                    <div>
+                        <h2 id="dashStudentName" class="text-2xl font-bold text-white">Student Name</h2>
+                        <p id="dashCollege" class="text-xs text-slate-400">College Name</p>
+                    </div>
+                </div>
+
+                <div class="px-3 py-1.5 rounded-full bg-bio-neon/10 border border-bio-neon/30 text-bio-neon text-xs font-semibold">
+                    <i class="fa-solid fa-check-circle mr-1"></i> Active Student
+                </div>
+            </div>
+
+            <!-- Profile Overview Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="p-4 rounded-xl bg-bio-900/80 border border-bio-neon/15 space-y-1">
+                    <span class="text-xs text-slate-400">Batch & Routine</span>
+                    <p id="dashBatch" class="font-bold text-white text-sm">HSC 28</p>
+                    <p id="dashSchedule" class="text-xs text-bio-neon font-mono">Sat, Mon, Wed (3-4 PM)</p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-bio-900/80 border border-bio-neon/15 space-y-1">
+                    <span class="text-xs text-slate-400">Payment Clearance</span>
+                    <p id="dashPaymentStatus" class="font-bold text-emerald-400 text-sm">PAID (TrxID Verified)</p>
+                    <p id="dashTrxID" class="text-xs text-slate-400 font-mono">Trx: BKX9827361</p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-bio-900/80 border border-bio-neon/15 space-y-1">
+                    <span class="text-xs text-slate-400">Guardian Contact</span>
+                    <p id="dashGuardian" class="font-bold text-white text-sm">01800000000</p>
+                    <p class="text-xs text-slate-400">Sms Alert Active</p>
+                </div>
+            </div>
+
+            <!-- Class Exams & Marks Section -->
+            <div class="space-y-3">
+                <h4 class="font-bold text-white text-base flex items-center gap-2">
+                    <i class="fa-solid fa-chart-column text-bio-neon"></i> Academic Performance & Exam Records
+                </h4>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs">
+                        <thead class="bg-bio-900 text-bio-neon uppercase tracking-wider font-semibold">
+                            <tr>
+                                <th class="p-3 rounded-l-xl">Exam Title</th>
+                                <th class="p-3">Subject</th>
+                                <th class="p-3">Obtained Marks</th>
+                                <th class="p-3">Status</th>
+                                <th class="p-3 rounded-r-xl">Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dashExamsBody" class="divide-y divide-bio-neon/10 text-slate-300">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Notice / Information Box -->
+            <div class="p-4 rounded-2xl bg-bio-800/40 border border-bio-neon/20 flex items-start gap-3 text-xs text-slate-300">
+                <i class="fa-solid fa-circle-info text-bio-neon text-lg shrink-0 mt-0.5"></i>
+                <div>
+                    <p class="font-semibold text-white">Class Notification</p>
+                    <p class="text-slate-400 mt-0.5">Please bring your Botany practical drawing sheet in the next Saturday class. Regular chapter exam will be held on Chapter 2 (Cell Division).</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast Box -->
+    <div id="toastBox" class="fixed bottom-5 right-5 z-50 hidden max-w-sm px-5 py-3 rounded-2xl glass-card border border-bio-neon text-bio-neon text-xs font-semibold shadow-2xl flex items-center gap-3">
+        <i class="fa-solid fa-bell text-base"></i>
+        <span id="toastMsg">Action completed successfully!</span>
+    </div>
+
     <script>
-        // STEP 3 & 4: Firebase Initialization Config
-        // (আপনার Firebase Console-এর Project Settings থেকে পাওয়া আসল API Key টি নিচে বসান)
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY_HERE",
-            authDomain: "repon-sir-biology.firebaseapp.com",
-            projectId: "repon-sir-biology",
-            storageBucket: "repon-sir-biology.appspot.com",
-            messagingSenderId: "1234567890",
-            appId: "1:1234567890:web:abcdef..."
-        };
+        /* Floating DNA Particles Canvas Background Animation */
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
 
-        // Initialize Firebase
-        if (typeof firebase !== 'undefined' && firebase.apps && !firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.radius = Math.random() * 2 + 1;
+                this.color = Math.random() > 0.5 ? 'rgba(52, 211, 153, ' : 'rgba(6, 182, 212, ';
+                this.alpha = Math.random() * 0.4 + 0.1;
+                this.vx = (Math.random() - 0.5) * 0.4;
+                this.vy = (Math.random() - 0.5) * 0.4;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color + this.alpha + ')';
+                ctx.fill();
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
         }
-        const db = (typeof firebase !== 'undefined' && firebase.firestore) ? firebase.firestore() : null;
 
-        // Modal Helpers
-        function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
-        function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+        const particles = Array.from({ length: 45 }, () => new Particle());
 
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toast-message').textContent = msg;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 3500);
-        }
+        function animateCanvas() {
+            ctx.clearRect(0, 0, width, height);
 
-        // ========================================================
-        // STEP 5 IMPLEMENTATION: Save Student to Firebase Firestore
-        // ========================================================
-        async function handleRegistration(e) {
-            e.preventDefault();
-            
-            const phone = document.getElementById('regPhone').value.trim();
-            const selectedBatch = document.getElementById('regBatch').value;
-            
-            const studentData = {
-                name: document.getElementById('regName').value,
-                phone: phone,
-                guardian: document.getElementById('regGuardian').value,
-                college: document.getElementById('regCollege').value,
-                batch: selectedBatch,
-                trxId: document.getElementById('regTrxID').value,
-                date: new Date().toLocaleDateString('en-GB'),
-                payments: [
-                    { 
-                        month: `${selectedBatch} Admission`, 
-                        amount: "2,000 BDT", 
-                        trx: document.getElementById('regTrxID').value, 
-                        status: "Cleared" 
+            // Connect nearby particles with subtle bio-mesh lines
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 110) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(16, 185, 129, ${0.15 * (1 - dist / 110)})`;
+                        ctx.lineWidth = 0.6;
+                        ctx.stroke();
                     }
-                ],
+                }
+            }
+            requestAnimationFrame(animateCanvas);
+        }
+        animateCanvas();
+
+        /* LocalStorage Persistence Management */
+        const STORAGE_KEY = 'repon_sir_students_db';
+
+        // Pre-loaded initial mock data if localStorage is empty
+        const initialMockStudents = [
+            {
+                mobile: '01711112222',
+                name: 'Arafat Rahman',
+                college: 'Rangpur Govt College',
+                guardian: '01700000001',
+                batch: 'HSC 28',
+                schedule: 'Sat, Mon, Wed (3:00 PM - 4:00 PM)',
+                trxId: 'BKX9827361',
+                paymentCleared: true,
                 exams: [
-                    { title: "Botany Introductory Quiz", subject: "Botany", score: "48/50", rank: "Top 5", status: "Passed" }
+                    { title: 'Chapter 1: Cell & Structure', subject: 'Botany', marks: '24 / 25', status: 'Passed', remarks: 'Excellent' },
+                    { title: 'Chapter 2: Cell Division', subject: 'Botany', marks: '22 / 25', status: 'Passed', remarks: 'Good' },
+                    { title: 'Zoology Animal Diversity', subject: 'Zoology', marks: '25 / 25', status: 'Passed', remarks: 'Highest Score' }
+                ]
+            }
+        ];
+
+        function getStudentsDB() {
+            const data = localStorage.getItem(STORAGE_KEY);
+            if (!data) {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(initialMockStudents));
+                return initialMockStudents;
+            }
+            return JSON.parse(data);
+        }
+
+        function saveStudentToDB(student) {
+            const db = getStudentsDB();
+            db.push(student);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
+        }
+
+        /* Modal Helpers */
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+        /* Schedule Options Generator */
+        function updateBatchScheduleOptions() {
+            const batchVal = document.getElementById('regBatch').value;
+            const scheduleSelect = document.getElementById('regSchedule');
+            scheduleSelect.innerHTML = '';
+
+            if (batchVal === 'HSC 28') {
+                scheduleSelect.innerHTML = `
+                    <option value="Sat, Mon, Wed (3:00 PM - 4:00 PM)">Sat, Mon, Wed (3:00 PM - 4:00 PM)</option>
+                    <option value="Sun, Tue, Thu (3:00 PM - 4:00 PM)">Sun, Tue, Thu (3:00 PM - 4:00 PM)</option>
+                `;
+            } else {
+                scheduleSelect.innerHTML = `
+                    <option value="Sat, Mon, Wed (4:00 PM - 5:00 PM)">Sat, Mon, Wed (4:00 PM - 5:00 PM)</option>
+                    <option value="Sun, Tue, Thu (4:00 PM - 5:00 PM)">Sun, Tue, Thu (4:00 PM - 5:00 PM)</option>
+                    <option value="Sun, Tue, Thu (5:00 PM - 6:00 PM)">Sun, Tue, Thu (5:00 PM - 6:00 PM)</option>
+                `;
+            }
+        }
+        updateBatchScheduleOptions();
+
+        /* Calculator Logic */
+        let currentCalcType = 'new'; // 'new' or 'regular'
+
+        function setCalcType(type) {
+            currentCalcType = type;
+            const newBtn = document.getElementById('calcNewBtn');
+            const regBtn = document.getElementById('calcRegularBtn');
+
+            if (type === 'new') {
+                newBtn.className = 'py-3 px-4 rounded-xl border border-bio-neon text-sm font-semibold bg-bio-neon/20 text-bio-neon transition-all';
+                regBtn.className = 'py-3 px-4 rounded-xl border border-bio-neon/20 text-sm font-semibold text-slate-400 hover:bg-bio-800 transition-all';
+            } else {
+                regBtn.className = 'py-3 px-4 rounded-xl border border-bio-neon text-sm font-semibold bg-bio-neon/20 text-bio-neon transition-all';
+                newBtn.className = 'py-3 px-4 rounded-xl border border-bio-neon/20 text-sm font-semibold text-slate-400 hover:bg-bio-800 transition-all';
+            }
+            updateCalculator();
+        }
+
+        function updateCalculator() {
+            const months = parseInt(document.getElementById('monthsRange').value);
+            document.getElementById('monthsVal').innerText = months;
+            document.getElementById('calcMonthsText').innerText = `${months} Month${months > 1 ? 's' : ''}`;
+
+            const admissionFee = (currentCalcType === 'new') ? 1000 : 0;
+            const tuitionFee = months * 1000;
+            const total = admissionFee + tuitionFee;
+
+            document.getElementById('calcAdmissionFee').innerText = `${admissionFee} BDT`;
+            document.getElementById('calcTuitionFee').innerText = `${tuitionFee} BDT`;
+            document.getElementById('calcTotalFee').innerText = `${total} BDT`;
+        }
+        updateCalculator();
+
+        /* Registration Handling */
+        function handleRegistration(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('regName').value.trim();
+            const mobile = document.getElementById('regMobile').value.trim();
+            const guardian = document.getElementById('regGuardian').value.trim();
+            const college = document.getElementById('regCollege').value.trim();
+            const batch = document.getElementById('regBatch').value;
+            const schedule = document.getElementById('regSchedule').value;
+            const trxId = document.getElementById('regTrxID').value.trim();
+
+            const db = getStudentsDB();
+            const existing = db.find(s => s.mobile === mobile);
+
+            if (existing) {
+                showToast('A student with this mobile number already exists!');
+                return;
+            }
+
+            const newStudent = {
+                mobile,
+                name,
+                college,
+                guardian,
+                batch,
+                schedule,
+                trxId,
+                paymentCleared: true,
+                exams: [
+                    { title: 'Orientation & Chapter 1 Overview', subject: 'Biology Combined', marks: 'Pending', status: 'Enrolled', remarks: 'New Admission' }
                 ]
             };
 
-            // Firebase Firestore - এ মোবাইল নম্বর দিয়ে Document তৈরি করে সেভ করা
-            if (db) {
-                try {
-                    await db.collection('students').doc(phone).set(studentData);
-                    showToast("ডাটা ক্লাউড ফায়ারবেসে সফলভাবে সেভ হয়েছে!");
-                } catch (error) {
-                    console.error("Firebase Save Error:", error);
-                    showToast("ফায়ারবেসে ডাটা সেভ করতে সমস্যা হয়েছে! API Key চেক করুন।");
-                }
-            } else {
-                showToast("Firebase инициализация হয় নাই, লোকালি সেভ করা হয়েছে!");
-            }
-
-            // Local State Management
-            localStorage.setItem('repon_biology_user', JSON.stringify(studentData));
+            saveStudentToDB(newStudent);
             closeModal('registerModal');
-            loadDashboard();
+            showToast('Registration Successful! Logging in...');
+
+            // Auto Login
+            setActiveUserSession(newStudent);
         }
 
-        // STEP 6: Firebase/Local Login
-        async function handleLogin(e) {
+        /* Login Handling */
+        function handleLogin(e) {
             e.preventDefault();
-            const phone = document.getElementById('loginPhone').value.trim();
+            const mobile = document.getElementById('loginMobile').value.trim();
+            const db = getStudentsDB();
+            const student = db.find(s => s.mobile === mobile);
 
-            if (db) {
-                try {
-                    const doc = await db.collection('students').doc(phone).get();
-                    if (doc.exists) {
-                        const studentData = doc.data();
-                        localStorage.setItem('repon_biology_user', JSON.stringify(studentData));
-                        closeModal('loginModal');
-                        loadDashboard();
-                        showToast(`Welcome back, ${studentData.name}!`);
-                        return;
-                    }
-                } catch (err) {
-                    console.log("Firestore Fetch Error, using local fallback", err);
-                }
-            }
-
-            const stored = localStorage.getItem('repon_biology_user');
-            if (stored) {
+            if (student) {
                 closeModal('loginModal');
-                loadDashboard();
+                setActiveUserSession(student);
+                showToast(`Welcome back, ${student.name}!`);
             } else {
-                showToast("স্টুডেন্ট পাওয়া যায়নি! সঠিক নম্বর দিন।");
+                showToast('Mobile number not found. Please register first.');
             }
         }
 
-        function loadDashboard() {
-            const stored = localStorage.getItem('repon_biology_user');
-            if (!stored) return;
-            const user = JSON.parse(stored);
+        /* Pre-load demo student into login input */
+        function loadDemoStudent() {
+            document.getElementById('loginMobile').value = '01711112222';
+            showToast('Demo mobile number filled!');
+        }
 
-            document.getElementById('dashStudentName').textContent = user.name;
-            document.getElementById('dashStudentCollege').textContent = user.college;
-            document.getElementById('studentDashboardSection').classList.remove('hidden');
+        /* Auth Session Handling */
+        let currentActiveUser = null;
+
+        function setActiveUserSession(student) {
+            currentActiveUser = student;
+            document.getElementById('navAuthBtns').classList.add('hidden');
+            document.getElementById('navUserWidget').classList.remove('hidden');
+            document.getElementById('navUserName').innerText = student.name.split(' ')[0];
         }
 
         function logoutStudent() {
-            localStorage.removeItem('repon_biology_user');
-            document.getElementById('studentDashboardSection').classList.add('hidden');
+            currentActiveUser = null;
+            document.getElementById('navAuthBtns').classList.remove('hidden');
+            document.getElementById('navUserWidget').classList.add('hidden');
+            showToast('Logged out successfully');
         }
 
-        window.addEventListener('DOMContentLoaded', loadDashboard);
+        function openDashboard() {
+            if (!currentActiveUser) return;
+
+            document.getElementById('dashStudentName').innerText = currentActiveUser.name;
+            document.getElementById('dashCollege').innerText = currentActiveUser.college;
+            document.getElementById('dashBatch').innerText = currentActiveUser.batch;
+            document.getElementById('dashSchedule').innerText = currentActiveUser.schedule;
+            document.getElementById('dashGuardian').innerText = currentActiveUser.guardian;
+            document.getElementById('dashTrxID').innerText = `TrxID: ${currentActiveUser.trxId}`;
+
+            const tbody = document.getElementById('dashExamsBody');
+            tbody.innerHTML = '';
+
+            if (currentActiveUser.exams && currentActiveUser.exams.length > 0) {
+                currentActiveUser.exams.forEach(ex => {
+                    const tr = document.createElement('tr');
+                    tr.className = 'hover:bg-bio-800/30 transition-colors';
+                    tr.innerHTML = `
+                        <td class="p-3 font-semibold text-white">${ex.title}</td>
+                        <td class="p-3 text-bio-neon">${ex.subject}</td>
+                        <td class="p-3 font-mono font-bold">${ex.marks}</td>
+                        <td class="p-3"><span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px]">${ex.status}</span></td>
+                        <td class="p-3 text-slate-400">${ex.remarks}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } else {
+                tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-500">No exam results recorded yet.</td></tr>`;
+            }
+
+            openModal('dashboardModal');
+        }
+
+        /* Copy Utility */
+        function copyToClipboard(text) {
+            const tempInput = document.createElement('input');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            showToast(`Copied ${text} to clipboard!`);
+        }
+
+        /* Toast Popup Utility */
+        function showToast(msg) {
+            const toast = document.getElementById('toastBox');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
     </script>
 </body>
 </html>
