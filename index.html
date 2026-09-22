@@ -1096,7 +1096,7 @@
                 toast.classList.add('hidden');
             }, 3000);
         }
-   <!-- Complete Firebase & UI Script -->
+    <!-- Firebase SDK (CDN) & Main Script -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
@@ -1117,144 +1117,7 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
 
-        // --- Global UI Helpers (For HTML onclick/onsubmit) ---
-        window.openModal = function(modalId) {
-            document.getElementById(modalId).classList.remove('hidden');
-        };
-
-        window.closeModal = function(modalId) {
-            document.getElementById(modalId).classList.add('hidden');
-        };
-
-        window.showToast = function(msg) {
-            const toast = document.getElementById('toastBox');
-            document.getElementById('toastMsg').innerText = msg;
-            toast.classList.remove('hidden');
-            setTimeout(() => {
-                toast.classList.add('hidden');
-            }, 3000);
-        };
-
-        window.copyToClipboard = function(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                showToast(`Copied ${text} to clipboard!`);
-            }).catch(() => {
-                const tempInput = document.createElement('input');
-                tempInput.value = text;
-                document.body.appendChild(tempInput);
-                tempInput.select();
-                document.execCommand('copy');
-                document.body.removeChild(tempInput);
-                showToast(`Copied ${text} to clipboard!`);
-            });
-        };
-
-        window.updateBatchScheduleOptions = function() {
-            const batchVal = document.getElementById('regBatch').value;
-            const scheduleSelect = document.getElementById('regSchedule');
-            if(!scheduleSelect) return;
-            scheduleSelect.innerHTML = '';
-
-            if (batchVal === 'HSC 28') {
-                scheduleSelect.innerHTML = `
-                    <option value="Sat, Mon, Wed (3:00 PM - 4:00 PM)">Sat, Mon, Wed (3:00 PM - 4:00 PM)</option>
-                    <option value="Sun, Tue, Thu (3:00 PM - 4:00 PM)">Sun, Tue, Thu (3:00 PM - 4:00 PM)</option>
-                `;
-            } else {
-                scheduleSelect.innerHTML = `
-                    <option value="Sat, Mon, Wed (4:00 PM - 5:00 PM)">Sat, Mon, Wed (4:00 PM - 5:00 PM)</option>
-                    <option value="Sun, Tue, Thu (4:00 PM - 5:00 PM)">Sun, Tue, Thu (4:00 PM - 5:00 PM)</option>
-                    <option value="Sun, Tue, Thu (5:00 PM - 6:00 PM)">Sun, Tue, Thu (5:00 PM - 6:00 PM)</option>
-                `;
-            }
-        };
-
-        let currentCalcType = 'new';
-        window.setCalcType = function(type) {
-            currentCalcType = type;
-            const newBtn = document.getElementById('calcNewBtn');
-            const regBtn = document.getElementById('calcRegularBtn');
-
-            if (type === 'new') {
-                newBtn.className = 'py-3 px-4 rounded-xl border border-bio-neon text-sm font-semibold bg-bio-neon/20 text-bio-neon transition-all';
-                regBtn.className = 'py-3 px-4 rounded-xl border border-bio-neon/20 text-sm font-semibold text-slate-400 hover:bg-bio-800 transition-all';
-            } else {
-                regBtn.className = 'py-3 px-4 rounded-xl border border-bio-neon text-sm font-semibold bg-bio-neon/20 text-bio-neon transition-all';
-                newBtn.className = 'py-3 px-4 rounded-xl border border-bio-neon/20 text-sm font-semibold text-slate-400 hover:bg-bio-800 transition-all';
-            }
-            updateCalculator();
-        };
-
-        window.updateCalculator = function() {
-            const monthsRange = document.getElementById('monthsRange');
-            if(!monthsRange) return;
-            const months = parseInt(monthsRange.value);
-            document.getElementById('monthsVal').innerText = months;
-            document.getElementById('calcMonthsText').innerText = `${months} Month${months > 1 ? 's' : ''}`;
-
-            const admissionFee = (currentCalcType === 'new') ? 1000 : 0;
-            const tuitionFee = months * 1000;
-            const total = admissionFee + tuitionFee;
-
-            document.getElementById('calcAdmissionFee').innerText = `${admissionFee} BDT`;
-            document.getElementById('calcTuitionFee').innerText = `${tuitionFee} BDT`;
-            document.getElementById('calcTotalFee').innerText = `${total} BDT`;
-        };
-
-        let currentActiveUser = null;
-        window.setActiveUserSession = function(student) {
-            currentActiveUser = student;
-            document.getElementById('navAuthBtns').classList.add('hidden');
-            document.getElementById('navUserWidget').classList.remove('hidden');
-            document.getElementById('navUserName').innerText = student.name.split(' ')[0];
-        };
-
-        window.logoutStudent = function() {
-            currentActiveUser = null;
-            document.getElementById('navAuthBtns').classList.remove('hidden');
-            document.getElementById('navUserWidget').classList.add('hidden');
-            showToast('Logged out successfully');
-        };
-
-        window.openDashboard = function() {
-            if (!currentActiveUser) return;
-
-            document.getElementById('dashStudentName').innerText = currentActiveUser.name;
-            document.getElementById('dashCollege').innerText = currentActiveUser.college;
-            document.getElementById('dashBatch').innerText = currentActiveUser.batch;
-            document.getElementById('dashSchedule').innerText = currentActiveUser.schedule;
-            document.getElementById('dashGuardian').innerText = currentActiveUser.guardian;
-            document.getElementById('dashTrxID').innerText = `TrxID: ${currentActiveUser.trxId}`;
-
-            const tbody = document.getElementById('dashExamsBody');
-            tbody.innerHTML = '';
-
-            if (currentActiveUser.exams && currentActiveUser.exams.length > 0) {
-                currentActiveUser.exams.forEach(ex => {
-                    const tr = document.createElement('tr');
-                    tr.className = 'hover:bg-bio-800/30 transition-colors';
-                    tr.innerHTML = `
-                        <td class="p-3 font-semibold text-white">${ex.title}</td>
-                        <td class="p-3 text-bio-neon">${ex.subject}</td>
-                        <td class="p-3 font-mono font-bold">${ex.marks}</td>
-                        <td class="p-3"><span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px]">${ex.status}</span></td>
-                        <td class="p-3 text-slate-400">${ex.remarks}</td>
-                    `;
-                    tbody.appendChild(tr);
-                });
-            } else {
-                tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-500">No exam results recorded yet.</td></tr>`;
-            }
-
-            openModal('dashboardModal');
-        };
-
-        window.loadDemoStudent = function() {
-            document.getElementById('loginMobile').value = '01711112222';
-            showToast('Demo mobile number filled!');
-        };
-
-        // --- Firebase Database Handlers ---
+        // Registration Handling with Firebase Database
         window.handleRegistration = async function(e) {
             e.preventDefault();
 
@@ -1282,10 +1145,13 @@
             };
 
             try {
-                // Save to Firebase Realtime Database
+                // Firebase Database-এর 'students' নোডে মোবাইল নম্বর দিয়ে সেভ হবে
                 await set(ref(database, 'students/' + mobile), studentData);
+                
                 closeModal('registerModal');
                 showToast('Registration Successful! Data Saved to Firebase.');
+                
+                // Auto Login Session
                 setActiveUserSession(studentData);
             } catch (error) {
                 console.error("Firebase Error: ", error);
@@ -1293,6 +1159,7 @@
             }
         };
 
+        // Login Handling with Firebase Database
         window.handleLogin = async function(e) {
             e.preventDefault();
             const mobile = document.getElementById('loginMobile').value.trim();
@@ -1313,78 +1180,6 @@
                 showToast('Error logging in: ' + error.message);
             }
         };
-
-        // Canvas Particle Background Animation
-        const canvas = document.getElementById('bgCanvas');
-        if (canvas) {
-            const ctx = canvas.getContext('2d');
-            let width = canvas.width = window.innerWidth;
-            let height = canvas.height = window.innerHeight;
-
-            window.addEventListener('resize', () => {
-                width = canvas.width = window.innerWidth;
-                height = canvas.height = window.innerHeight;
-            });
-
-            class Particle {
-                constructor() {
-                    this.x = Math.random() * width;
-                    this.y = Math.random() * height;
-                    this.radius = Math.random() * 2 + 1;
-                    this.color = Math.random() > 0.5 ? 'rgba(52, 211, 153, ' : 'rgba(6, 182, 212, ';
-                    this.alpha = Math.random() * 0.4 + 0.1;
-                    this.vx = (Math.random() - 0.5) * 0.4;
-                    this.vy = (Math.random() - 0.5) * 0.4;
-                }
-
-                draw() {
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = this.color + this.alpha + ')';
-                    ctx.fill();
-                }
-
-                update() {
-                    this.x += this.vx;
-                    this.y += this.vy;
-
-                    if (this.x < 0 || this.x > width) this.vx *= -1;
-                    if (this.y < 0 || this.y > height) this.vy *= -1;
-                }
-            }
-
-            const particles = Array.from({ length: 45 }, () => new Particle());
-
-            function animateCanvas() {
-                ctx.clearRect(0, 0, width, height);
-
-                for (let i = 0; i < particles.length; i++) {
-                    particles[i].update();
-                    particles[i].draw();
-
-                    for (let j = i + 1; j < particles.length; j++) {
-                        const dx = particles[i].x - particles[j].x;
-                        const dy = particles[i].y - particles[j].y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
-
-                        if (dist < 110) {
-                            ctx.beginPath();
-                            ctx.moveTo(particles[i].x, particles[i].y);
-                            ctx.lineTo(particles[j].x, particles[j].y);
-                            ctx.strokeStyle = `rgba(16, 185, 129, ${0.15 * (1 - dist / 110)})`;
-                            ctx.lineWidth = 0.6;
-                            ctx.stroke();
-                        }
-                    }
-                }
-                requestAnimationFrame(animateCanvas);
-            }
-            animateCanvas();
-        }
-
-        // Initialize Options
-        window.updateBatchScheduleOptions();
-        window.updateCalculator();
     </script>
 </body>
 </html>
