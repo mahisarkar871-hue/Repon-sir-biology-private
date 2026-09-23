@@ -1096,6 +1096,33 @@
                 toast.classList.add('hidden');
             }, 3000);
         }
+   const scriptURL = 'https://script.google.com/macros/s/AKfycbzOVveWtp9mkWGZGQpryOntNFFpqWg9NZohZnf5usuT6MJ_MBKjse1sYqoI9k2gP4lmGA/exec';
+
+document.getElementById('regForm').addEventListener('submit', e => {
+  e.preventDefault();
+  
+  const formData = {
+    action: "register",
+    name: document.getElementById('name').value,
+    mobile: document.getElementById('mobile').value,
+    guardianContact: document.getElementById('guardianContact').value,
+    college: document.getElementById('college').value,
+    batch: document.getElementById('batch').value,
+    schedule: document.getElementById('schedule').value,
+    trxId: document.getElementById('trxId').value
+  };
+
+  fetch(scriptURL, { 
+    method: 'POST', 
+    body: JSON.stringify(formData),
+    mode: 'no-cors'
+  })
+  .then(() => {
+    alert('Registration successful! Please wait for admin approval.');
+    document.getElementById('regForm').reset();
+  })
+  .catch(error => console.error('Error!', error.message));
+});
     </script>
 </body>
 </html>
